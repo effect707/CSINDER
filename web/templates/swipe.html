@@ -1,0 +1,18 @@
+{{define "title"}}Поиск{{end}}
+{{define "content"}}
+<div class="swipe-container">
+    <div id="card-stack" class="card-stack">
+        <div class="empty-state" id="empty-state" style="display:none;">
+            <p>Нет игроков в твоём диапазоне ELO.</p>
+            <p>Загляни позже!</p>
+        </div>
+    </div>
+    <div class="swipe-buttons">
+        <button class="btn-swipe btn-skip" id="btn-skip" title="Пропустить">✕</button>
+        <button class="btn-swipe btn-like" id="btn-like" title="В команду!">✓</button>
+    </div>
+</div>
+<script src="/static/js/swipe.js"></script>
+{{end}}
+
+{{template "layout" .}}
