@@ -1,0 +1,34 @@
+{{define "layout"}}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSINDER — {{template "title" .}}</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="/swipe" class="logo">CSINDER</a>
+        <div class="nav-links">
+            <a href="/swipe" class="nav-link">Поиск</a>
+            <a href="/matches" class="nav-link">
+                Матчи
+                {{if and .UnseenCount (gt .UnseenCount 0)}}
+                    <span class="badge">{{.UnseenCount}}</span>
+                {{end}}
+            </a>
+            <a href="/profile" class="nav-link">Профиль</a>
+            <form action="/auth/logout" method="POST" class="logout-form">
+                <button type="submit" class="nav-link logout-btn">Выйти</button>
+            </form>
+        </div>
+    </nav>
+    <main class="container">
+        {{template "content" .}}
+    </main>
+    <div id="toast-container"></div>
+    <script src="/static/js/ws.js"></script>
+</body>
+</html>
+{{end}}

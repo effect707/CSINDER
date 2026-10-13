@@ -1,0 +1,53 @@
+{{define "title"}}Профиль{{end}}
+{{define "content"}}
+<div class="profile-container">
+    <div class="profile-card">
+        <div class="profile-header">
+            {{if .User.Avatar}}
+                <img src="{{.User.Avatar}}" alt="{{.User.Nickname}}" class="profile-avatar">
+            {{else}}
+                <div class="profile-avatar-placeholder">{{slice .User.Nickname 0 1}}</div>
+            {{end}}
+            <h2 class="profile-nickname">{{.User.Nickname}}</h2>
+            {{if .User.Country}}
+                <span class="profile-country">{{.User.Country}}</span>
+            {{end}}
+        </div>
+        <div class="stats-grid">
+            <div class="stat-item">
+                <span class="stat-value">{{.User.FaceitElo}}</span>
+                <span class="stat-label">ELO</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value">{{.User.SkillLevel}}</span>
+                <span class="stat-label">Уровень</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value">{{printf "%.1f" .User.KDRatio}}</span>
+                <span class="stat-label">K/D</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value">{{printf "%.0f" .User.WinRate}}%</span>
+                <span class="stat-label">Винрейт</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value">{{.User.Matches}}</span>
+                <span class="stat-label">Матчи</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value">{{printf "%.0f" .User.HeadshotPct}}%</span>
+                <span class="stat-label">HS</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value">{{.User.LongestStreak}}</span>
+                <span class="stat-label">Серия побед</span>
+            </div>
+        </div>
+        {{if .User.FaceitURL}}
+            <a href="{{.User.FaceitURL}}" target="_blank" class="btn btn-secondary">Профиль на Faceit</a>
+        {{end}}
+    </div>
+</div>
+{{end}}
+
+{{template "layout" .}}

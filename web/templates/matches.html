@@ -1,0 +1,48 @@
+{{define "title"}}Матчи{{end}}
+{{define "content"}}
+<div class="matches-container">
+    <h2>Тебя выбрали</h2>
+    {{if .Notifications}}
+        <div class="matches-list">
+            {{range .Notifications}}
+                <div class="match-card {{if not .Seen}}unseen{{end}}" data-id="{{.ID}}">
+                    <div class="match-info">
+                        {{if .FromAvatar}}
+                            <img src="{{.FromAvatar}}" alt="{{.FromNickname}}" class="match-avatar">
+                        {{else}}
+                            <div class="match-avatar-placeholder">{{slice .FromNickname 0 1}}</div>
+                        {{end}}
+                        <div class="match-details">
+                            <span class="match-nickname">{{.FromNickname}}</span>
+                            <span class="match-elo">ELO: {{.FromElo}}</span>
+                        </div>
+                    </div>
+                    {{if .FromFaceitURL}}
+                        <a href="{{.FromFaceitURL}}" target="_blank" class="btn btn-small">Faceit</a>
+                    {{end}}
+                </div>
+            {{end}}
+        </div>
+    {{else}}
+        <div class="empty-state">
+            <p>Пока никто тебя не выбрал.</p>
+            <p>Продолжай свайпать!</p>
+        </div>
+    {{end}}
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var unseen = document.querySelectorAll('.match-card.unseen');
+    if (unseen.length === 0) return;
+    var ids = [];
+    unseen.forEach(function(el) { ids.push(el.dataset.id); });
+    fetch('/api/notifications/seen', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ids: ids})
+    });
+});
+</script>
+{{end}}
+
+{{template "layout" .}}
